@@ -1,0 +1,914 @@
+swagger: "2.0"
+info:
+  description: "This is an example of an api implementation of a parking lot system."
+  version: "1.0.0"
+  title: "Parking Lot"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "parking-lot.ibrahimd.dev"
+basePath: "/v1"
+tags:
+- name: "reservation"
+  description: "Reservation for Parking Spots"
+- name: "spot"
+  description: "Parking Spots"
+- name: "user"
+  description: "User Operations"
+schemes:
+- "https"
+paths:
+  /reservation:
+    get:
+      tags:
+      - "reservation"
+      summary: "Get all Reservation"
+      operationId: "getAllReservations"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful Operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Reservation"
+    post:
+      tags:
+      - "reservation"
+      summary: "Create a new reservation at the parking lot"
+      operationId: "createReservation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Reservation object"
+        required: true
+        schema:
+          $ref: "#/definitions/Reservation"
+      responses:
+        "405":
+          description: "Invalid Input"
+  /reservation/{reservationId}:
+    get:
+      tags:
+      - "reservation"
+      summary: "Find reservation by ID"
+      description: "Returns a single reservation"
+      operationId: "getReservationById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "ID of reservation to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Reservation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+    put:
+      tags:
+      - "reservation"
+      summary: "Update an existing reservation"
+      operationId: "updateReservation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "ID of reservation to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Reservation object"
+        required: true
+        schema:
+          $ref: "#/definitions/Reservation"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+        "405":
+          description: "Validation exception"
+    delete:
+      tags:
+      - "reservation"
+      summary: "Deletes a Reservation"
+      description: ""
+      operationId: "deleteReservation"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "Reservation id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+  
+  /spot:
+    get:
+      tags:
+      - "spot"
+      summary: "Get all Spot"
+      operationId: "getAllSpots"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful Operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Spot"
+    post:
+      tags:
+      - "spot"
+      summary: "Create a new spot at the parking lot"
+      operationId: "createSpot"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Spot object"
+        required: true
+        schema:
+          $ref: "#/definitions/Spot"
+      responses:
+        "405":
+          description: "Invalid Input"
+  /spot/{spotId}:
+    get:
+      tags:
+      - "spot"
+      summary: "Find spot by ID"
+      description: "Returns a single spot"
+      operationId: "getSpotById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "spotId"
+        in: "path"
+        description: "ID of spot to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Spot"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Spot not found"
+    put:
+      tags:
+      - "spot"
+      summary: "Update an existing reservation"
+      operationId: "updateReservation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "ID of reservation to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Reservation object"
+        required: true
+        schema:
+          $ref: "#/definitions/Reservation"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+        "405":
+          description: "Validation exception"
+    delete:
+      tags:
+      - "reservation"
+      summary: "Deletes a Reservation"
+      description: ""
+      operationId: "deleteReservation"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "Reservation id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+
+  # /spot:
+  # /spot/reservations:
+  # /spot/findByLocation:
+  /spot/{spotId}:
+    get:
+      tags:
+      - "spot"
+      summary: "Find pet by ID"
+      description: "Returns a single pet"
+      operationId: "getPetById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "spotId"
+        in: "path"
+        description: "ID of pet to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Spot"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Pet not found"
+    post:
+      tags:
+      - "spot"
+      summary: "Updates a pet in the store with form data"
+      description: ""
+      operationId: "updateSpotWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "spotId"
+        in: "path"
+        description: "ID of pet that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the pet"
+        required: false
+        type: "string"
+      - name: "status"
+        in: "formData"
+        description: "Updated status of the pet"
+        required: false
+        type: "string"
+      responses:
+        "405":
+          description: "Invalid input"
+    delete:
+      tags:
+      - "spot"
+      summary: "Deletes a pet"
+      description: ""
+      operationId: "deleteSpot"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "spotId"
+        in: "path"
+        description: "Pet id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Pet not found"
+    /user:
+      post:
+        tags:
+        - "user"
+        summary: "Create user"
+        description: "This can only be done by the logged in user."
+        operationId: "createUser"
+        produces:
+        - "application/xml"
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Created user object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+        responses:
+          default:
+            description: "successful operation"
+    /user/createWithArray:
+      post:
+        tags:
+        - "user"
+        summary: "Creates list of users with given input array"
+        description: ""
+        operationId: "createUsersWithArrayInput"
+        produces:
+        - "application/xml"
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "List of user object"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+        responses:
+          default:
+            description: "successful operation"
+    /user/createWithList:
+      post:
+        tags:
+        - "user"
+        summary: "Creates list of users with given input array"
+        description: ""
+        operationId: "createUsersWithListInput"
+        produces:
+        - "application/xml"
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "List of user object"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+        responses:
+          defaultswagger: "2.0"
+info:
+  description: "This is an example of an api implementation of a parking lot system."
+  version: "1.0.0"
+  title: "Parking Lot"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "parking-lot.ibrahimd.dev"
+basePath: "/v1"
+tags:
+- name: "reservation"
+  description: "Reservation for Parking Spots"
+- name: "spot"
+  description: "Parking Spots"
+- name: "user"
+  description: "User Operations"
+schemes:
+- "https"
+paths:
+  /reservation:
+    get:
+      tags:
+      - "reservation"
+      summary: "Get all Reservation"
+      operationId: "getAllReservations"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "spotId"
+        type: "integer"
+        description: "filter by spot Id (Optional). Ex. spotId=12345"
+      - in: "query"
+        name: "status"
+        type: "string"
+        description: "filter by status (Optional) Ex. status=available"
+      responses:
+        "200":
+          description: "successful Operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Reservation"
+    post:
+      tags:
+      - "reservation"
+      summary: "Create a new reservation at the parking lot"
+      operationId: "createReservation"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "spotId"
+        type: "integer"
+        description: "Id for the spot you wish to reserve"
+        required: true
+      - in: "formData"
+        name: "userId"
+        type: "integer"
+        required: true
+        description: "Id of your user account"
+      - in: "formData"
+        name: "endDate"
+        type: "string"
+        required: true
+        description: "EndDate for your reservation"
+      responses:
+        "405":
+          description: "Invalid Input"
+  /reservation/{reservationId}:
+    get:
+      tags:
+      - "reservation"
+      summary: "Find reservation by ID"
+      description: "Returns a single reservation"
+      operationId: "getReservationById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "ID of reservation to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Reservation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+    put:
+      tags:
+      - "reservation"
+      summary: "Update an existing reservation"
+      operationId: "updateReservation"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "ID of reservation to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Reservation object"
+        required: true
+        schema:
+          $ref: "#/definitions/Reservation"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+        "405":
+          description: "Validation exception"
+    delete:
+      tags:
+      - "reservation"
+      summary: "Deletes a Reservation"
+      description: ""
+      operationId: "deleteReservation"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "reservationId"
+        in: "path"
+        description: "Reservation id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Reservation not found"
+  
+  /spot:
+    get:
+      tags:
+      - "spot"
+      summary: "Get all Spots"
+      operationId: "getAllSpots"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful Operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Spot"
+    post:
+      tags:
+      - "spot"
+      summary: "Create a new spot at the parking lot"
+      operationId: "createSpot"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Spot object"
+        required: true
+        schema:
+          $ref: "#/definitions/Spot"
+      responses:
+        "405":
+          description: "Invalid Input"
+  /spot/{spotId}:
+    get:
+      tags:
+      - "spot"
+      summary: "Find spot by ID"
+      description: "Returns a single spot"
+      operationId: "getSpotById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "spotId"
+        in: "path"
+        description: "ID of spot to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Spot"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Spot not found"
+    put:
+      tags:
+      - "spot"
+      summary: "Update an existing spot"
+      operationId: "updateSpot"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "spotId"
+        in: "path"
+        description: "ID of spot to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "body"
+        description: "Spot object"
+        required: true
+        schema:
+          $ref: "#/definitions/Spot"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Spot not found"
+        "405":
+          description: "Validation exception"
+    delete:
+      tags:
+      - "spot"
+      summary: "Deletes a Spot"
+      operationId: "deleteSpot"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "spotId"
+        in: "path"
+        description: "Apot id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Apot not found"
+  
+
+  /user:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - in: "formData"
+        name: "firstName"
+        type: "string"
+        description: "First Name"
+        required: true
+      - in: "formData"
+        name: "lastName"
+        type: "string"
+        description: "Last Name"
+      - in: "formData"
+        name: "email"
+        type: "string"
+        description: "Email"
+        required: true
+      - in: "formData"
+        name: "password"
+        type: "string"
+        description: "Password in clear text (for demo purposes)"
+        required: true
+      responses:
+        default:
+          description: "successful operation"
+  
+  /user/login:
+    post:
+      tags:
+      - "user"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "username"
+        in: "formData"
+        description: "The user name for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "formData"
+        description: "The password for login"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid username/password supplied"
+  /user/logout:
+    delete:
+      tags:
+      - "user"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+ 
+
+definitions:
+  Reservation:
+    type: "object"
+    required:
+    - "userId"
+    - "spotId"
+    - "startDate"
+    - "endDate"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 34567
+      userId:
+        type: "integer"
+        description: "This holds the foreign key for the user table."
+        example: 12345
+      spotId:
+        type: "integer"
+        description: "This holds the foreign key for the spot table."
+        example: 23456
+      startDate:
+        type: "string"
+        format: "date-time"
+        description: "The time at which the car owner parked their car."
+      endDate:
+        type: "string"
+        format: "date-time"
+        description: "The time at which the car owner left their parking spot or end of their reservation time."
+  User:
+    type: "object"
+    required:
+    - "firstName"
+    - "email"
+    - "password"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 12345
+      firstName:
+        type: "string"
+        example: "John"
+      lastName:
+        type: "string"
+        example: "Doe"
+      email:
+        type: "string"
+        example: "mail@example.com"
+      password:
+        type: "string"
+        example: "password"
+  Spot:
+    type: "object"
+    required:
+    - "location"
+    - "status"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 23456
+      location:
+        type: "string"
+        example: "A10"
+      status:
+        type: "string"
+        description: "spot status in the parking lot"
+        enum:
+        - "available"
+        - "reserved"
+        - "occupied"
+        - "unavailable":
+            description: "successful operation"
+    /user/login:
+      get:
+        tags:
+        - "user"
+        summary: "Logs user into the system"
+        description: ""
+        operationId: "loginUser"
+        produces:
+        - "application/xml"
+        - "application/json"
+        parameters:
+        - name: "username"
+          in: "query"
+          description: "The user name for login"
+          required: true
+          type: "string"
+        - name: "password"
+          in: "query"
+          description: "The password for login in clear text"
+          required: true
+          type: "string"
+        responses:
+          "200":
+            description: "successful operation"
+            schema:
+              type: "string"
+            headers:
+              X-Rate-Limit:
+                type: "integer"
+                format: "int32"
+                description: "calls per hour allowed by the user"
+              X-Expires-After:
+                type: "string"
+                format: "date-time"
+                description: "date in UTC when token expires"
+          "400":
+            description: "Invalid username/password supplied"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+ 
+
+definitions:
+  Reservation:
+    type: "object"
+    required:
+    - "userId"
+    - "spotId"
+    - "startDate"
+    - "endDate"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 34567
+      userId:
+        type: "integer"
+        description: "This holds the foreign key for the user table."
+        example: 12345
+      spotId:
+        type: "integer"
+        description: "This holds the foreign key for the spot table."
+        example: 23456
+      startDate:
+        type: "string"
+        format: "date-time"
+        description: "The time at which the car owner parked their car."
+      endDate:
+        type: "string"
+        format: "date-time"
+        description: "The time at which the car owner left their parking spot or end of their reservation time."
+  User:
+    type: "object"
+    required:
+    - "firstName"
+    - "email"
+    - "password"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 12345
+      firstName:
+        type: "string"
+        example: "John"
+      lastName:
+        type: "string"
+        example: "Doe"
+      email:
+        type: "string"
+        example: "mail@example.com"
+      password:
+        type: "string"
+        example: "password"
+  Spot:
+    type: "object"
+    required:
+    - "location"
+    - "status"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 23456
+      location:
+        type: "string"
+        example: "A10"
+      status:
+        type: "string"
+        description: "spot status in the parking lot"
+        enum:
+        - "available"
+        - "reserved"
+        - "occupied"
+        - "unavailable"
